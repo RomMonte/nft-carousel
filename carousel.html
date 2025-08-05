@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <title>The Magic of Metamorphosis</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    .intro {
+      max-width: 800px;
+      margin: 20px auto;
+      font-size: 1.2em;
+      line-height: 1.6;
+    }
+    .intro p:first-child {
+      color: #E67300;
+      font-size: 1.4em;
+      font-weight: bold;
+    }
+    .carousel {
+      position: relative;
+      width: 540px;
+      margin: 40px auto;
+    }
+    .carousel img {
+      width: 100%;
+      height: auto;
+      display: none;
+      border: 2px solid white;
+    }
+    .carousel img.active {
+      display: block;
+    }
+    .below-text {
+      max-width: 800px;
+      margin: 40px auto;
+      font-size: 1.1em;
+      line-height: 1.6;
+      color: white;
+    }
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="intro">
+    <p>From photography to magic</p>
+    <p>These visual compositions were created through the digital processing of photographs.</p>
+    <p>Magic is found in creation itself, in the details, colours, associations, symmetry, and image… In the realization of the simplicity of creating new visual worlds and the infinite possibilities of combining forms…</p>
+    <p>This collection does not depict darkness. It unveils the shadows residing in the viewer’s perception.</p>
+  </div>
+
+  <div class="carousel">
+    <img src="SL 117b Volcano.png" class="active">
+    <img src="SL 37n Sad Satan.png">
+    <img src="SL 129 Underground.png">
+    <img src="SL 20 Unicorn.png">
+    <img src="SL 1x Descendant of Avatar I (male).png">
+    <img src="SL 50 Some.png">
+    <img src="SL 1a Avatar I.png">
+    <img src="SL 2a Faces in the tree.png">
+  </div>
+
+  <audio id="bg-music" autoplay muted loop>
+    <source src="Estime-M.K.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="below-text">
+    <p><em>“There is nothing more beautiful on earth,<br>
+    Than a face brightened with cheerfulness.”</em><br>
+    The Mountain Wreath<br>
+    Petar II Petrović Njegoš, Montenegrin poet</p>
+  </div>
+
+  <script>
+    const images = document.querySelectorAll('.carousel img');
+    const audio = document.getElementById('bg-music');
+    let current = 0;
+
+    setInterval(() => {
+      images[current].classList.remove('active');
+      current = (current + 1) % images.length;
+      images[current].classList.add('active');
+    }, 12000);
+
+    images.forEach(img => {
+      img.addEventListener('click', () => {
+        if (!audio.paused) {
+          audio.pause();
+        } else {
+          audio.play();
+        }
+      });
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      audio.muted = false;
+      audio.volume = 1.0;
+
+      audio.play().catch(() => {
+        document.body.addEventListener('click', () => {
+          audio.play();
+        }, { once: true });
+      });
+    });
+  </script>
+
+</body>
+</html>
